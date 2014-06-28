@@ -13,7 +13,7 @@
 		<?php 
 			$x = $_POST['x'];
 			$y = $_POST['y'];
-			$distance = sqrt(pow($x, 2) - pow($y, 2));
+			$distance = sqrt(pow($x, 2) + pow($y, 2));
 			if ($distance <= 2.0) {
 				echo "true";
 			}

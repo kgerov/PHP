@@ -1,15 +1,25 @@
-<!DOCTYPE html>
-<html>
-	<head>
-		<meta charset="UTF-8">
-		<title></title>
-	</head>
-	<body>
-		<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-			
-		</form>
-		<?php 
-			
-		?>
-	</body>
-</html>
+<?php 
+	function makeSet ($names) {
+		$set = array();
+		$i = 0;
+		foreach ($names as $var) {
+			$isImported = false;
+			foreach ($set as $v) {
+				if ($var == $v) {
+					$isImported = true;
+				}
+			}
+			if ($isImported == false) {
+				$set[$i] = $var;
+				$i++;
+			}
+		}
+		return $set;
+	}
+
+	$names = array("Nakov", "Svetlin", "Nakov", "Pesho", "Mario", "Dimityr", "Georgi", "Mario");
+	$set = makeSet($names);
+	foreach ($set as $var) {
+		echo $var . " ";
+	}
+?>
