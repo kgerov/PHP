@@ -1,0 +1,63 @@
+Problem 1.
+
+1. Go to httpd.conf from XAAMP
+2. Add the following settings for the virtual host:
+
+<VirtualHost *:80>
+    ServerAdmin master@yahoo.com
+    ServerName music.bg
+    ServerAlias www.music.bg
+    DocumentRoot C:\TEMP\music.bg
+    ErrorLog C:\TEMP\music.bg\logs\error.log
+    CustomLog C:\TEMP\music.bg\logs\cerror.log
+	<Location C:\TEMP\music.bg\admin>
+        Require valid-user
+    </Location>
+	<Directory ...path to file system dir settings...>
+        Allow from localhost
+        Deny from all
+    </Directory>
+</VirtualHost>
+
+3. Go to C:\Windows\System32\drivers\etc and oped the hosts file. Add the following line at the end of the file
+127.0.0.1       www.music.bg
+
+4. Go to httpd.conf from the XAAMP menu again. Find the line
+Options Includes Indexes FollowSymLinks MultiViews
+and make it
+Options Includes FollowSymLinks MultiViews
+
+5. Restart apache
+
+Problem 2.
+
+1. Go to httpd.conf and add:
+Include conf/extra/httpd-ssl.conf
+
+2. Followed this tutorial http://www.dylanbeattie.net/docs/openssl_iis_ssl_howto.html for the creation of the cerificate.
+
+3. Added a virtual host to port 443 with those lines in it 
+SSLEngine on
+SSLCertificateFile ...path to .pem file...	
+
+Problem 3.
+The task for problem 3 was already completed in the solution of problem 1.
+
+Problem 4.
+1. Make sure rewrite_modulde is enabled. Go to httpd.conf and find:
+LoadModule rewrite_module modules/mod_rewrite.so
+If there is a # infront of the line, remove it.
+
+2. Then add
+<IfModule mod_rewrite.c>  
+RewriteEngine on  
+RewriteRule ^/(.*)/(.*).html$ /song.php?artist=$1&name=$2
+</IfModule>
+
+Problem 5.
+
+1. Go to php.ini and find variable upload_max_filesize and change its value from 2M to 10M
+
+Problem 6.
+
+1. Go to php.ini and find variable max_execution_time and change its value from 30 to 180 
